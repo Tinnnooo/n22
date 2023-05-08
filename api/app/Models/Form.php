@@ -18,15 +18,23 @@ class Form extends Model
         "creator_id"
     ];
 
-    public function allowedDomains(){
+    public function allowedDomains()
+    {
         return $this->hasMany(AllowedDomain::class);
     }
 
-    public function questions(){
+    public function questions()
+    {
         return $this->hasMany(Question::class);
     }
 
-    public function responses(){
+    public function responses()
+    {
         return $this->hasMany(Response::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
     }
 }

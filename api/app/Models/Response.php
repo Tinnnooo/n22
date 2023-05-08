@@ -16,7 +16,18 @@ class Response extends Model
         "date"
     ];
 
-    public function form(){
+    public function form()
+    {
         return $this->belongsTo(Form::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, "user_id");
     }
 }

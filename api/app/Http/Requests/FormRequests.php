@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class FormRequests extends FormRequest
 {
@@ -14,7 +16,8 @@ class FormRequests extends FormRequest
         return true;
     }
 
-    public function prepareForValidation(){
+    public function prepareForValidation()
+    {
         $this->merge([
             'creator_id' => $this->user()->id
         ]);
@@ -35,5 +38,15 @@ class FormRequests extends FormRequest
             "limit_one_response" => "boolean",
             "creator_id" => "exists:users,id"
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                "message" => "Invalid field",
+                "errors" => $validator->errors(),
+            ], 422)
+        );
     }
 }

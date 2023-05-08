@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Question;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,9 +25,18 @@ class ResponseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "answers" => "array",
-            "answers.*.question_id" => "exists:questions,id",
-            "answers.*.value" => "required",
+            "answers" => "array|required|min:1",
+            // "answers.*.question_id" => "exists:questions,id",
+            // "answers.*.value" => function ($attribute, $value, $fail) {
+            //     $index = Str::after($attribute, 'answers.');
+            //     $index = Str::before($index, '.value');
+            //     $questionId = $this->input("answers.{$index}.question_id");
+            //     $question = Question::find($questionId);
+
+            //     if ($question && $question->is_required && empty($value)) {
+            //         $fail("The answers field is required.");
+            //     }
+            // },
         ];
     }
 }
