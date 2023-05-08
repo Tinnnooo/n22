@@ -20,10 +20,12 @@ class CheckUserDomain
         $form = Form::where('slug', $request->slug)->first();
         $userDomain = substr(strrchr($request->user()->email, "@"), 1);
         $allowedDomain = $form->allowedDomains->pluck("domain")->toArray();
-        if (!in_array($userDomain, $allowedDomain)) {
-            return response()->json([
-                "message" => "Forbidden access",
-            ], 403);
+        if ($allowedDomain) {
+            if (!in_array($userDomain, $allowedDomain)) {
+                return response()->json([
+                    "message" => "Forbidden access",
+                ], 403);
+            }
         }
         return $next($request);
     }

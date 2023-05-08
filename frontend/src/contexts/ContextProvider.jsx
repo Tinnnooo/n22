@@ -3,13 +3,14 @@ import { createContext, useContext, useState } from "react";
 const StateContext = createContext({
   currentUser: {},
   userToken: null,
+  choiceTypes: [],
   toast: {
     message: "",
     show: false,
   },
   forms: [],
-  setCurrentUser: () => {},
-  setUserToken: () => {},
+  setCurrentUser: () => { },
+  setUserToken: () => { },
 });
 
 export const ContextProvider = ({ children }) => {
@@ -17,6 +18,7 @@ export const ContextProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(
     localStorage.getItem("accessToken") || ""
   );
+  const [choiceTypes] = useState(['short answer', 'paragraph', 'date', 'multiple choice', 'dropdown', 'checkboxes']);
   const [toast, setToast] = useState({ message: "", show: false, color: "" });
   const [forms, setForms] = useState([]);
 
@@ -47,6 +49,7 @@ export const ContextProvider = ({ children }) => {
         setForms,
         toast,
         showToast,
+        choiceTypes,
       }}
     >
       {children}

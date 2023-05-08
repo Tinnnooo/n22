@@ -23,7 +23,7 @@ export default function FormListItem({ form }) {
           </div>
         </Link>
         <button
-          className="btn-sm btn-warning rounded font-weight-bold col-sm-1"
+          className="btn-sm btn-warning rounded font-weight-bold col-lg-1 col-sm-2 align-center"
           onClick={copyLink}
         >
           Copy Link
