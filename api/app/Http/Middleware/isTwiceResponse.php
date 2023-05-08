@@ -19,8 +19,10 @@ class isTwiceResponse
     {
         $form = Form::where('slug', $request->slug)->first();
         $response = ModelsResponse::where('user_id', $request->user()->id)->first();
-        if (!$form->limit_one_response && $response) {
-            return abort(422, "You can not submit form twice");
+        if ($form->limit_one_response && $response) {
+            return response()->json([
+                "message" => "You can not submit form twice"
+            ], 422);
         }
         return $next($request);
     }

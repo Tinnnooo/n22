@@ -19,11 +19,15 @@ class AccessForm
         $form = Form::where('slug', $request->slug)->first();
 
         if(!$form){
-            return abort(404, "Form not found");
+            return response()->json([
+                "message" => "Form not found."
+            ], 404);
         }
 
         if($form->creator_id !== $request->user()->id){
-            return abort(403, "Forbidden access");
+            return response()->json([
+                "message" => "Forbidden access",
+            ], 403);
         }
 
         $request->attributes->add(["form" => $form]);

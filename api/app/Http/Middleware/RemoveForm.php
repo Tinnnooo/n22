@@ -19,19 +19,21 @@ class RemoveForm
     {
         $form = Form::where('slug', $request->slug)->first();
 
-        if(!$form){
-            return abort(404, 'Form not found');
-        }
+        // if(!$form){
+        //     return abort(404, 'Form not found');
+        // }
 
         $question = Question::where('form_id', $form->id)->where('id', $request->id)->first();
 
         if(!$question){
-            return abort(404, 'Question not found');
+            return response()->json([
+                "message" => "Question not found"
+            ], 404);
         }
 
-        if($form->creator_id !== $request->user()->id){
-            return abort(403, 'Forbidden access');
-        }
+        // if($form->creator_id !== $request->user()->id){
+        //     return abort(403, 'Forbidden access');
+        // }
 
         $request->attributes->add(["question" => $question]);
 

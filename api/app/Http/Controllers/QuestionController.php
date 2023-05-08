@@ -16,7 +16,7 @@ class QuestionController extends Controller
     use ApiResponseHelpers;
 
     public function __construct(){
-        $this->middleware(AccessForm::class)->only('add');
+        $this->middleware(AccessForm::class)->only(['add', 'remove']);
         $this->middleware(RemoveForm::class)->only('remove');
     }
 
