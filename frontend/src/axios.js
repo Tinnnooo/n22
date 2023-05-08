@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: `${import.meta.env.VITE_BASE_URL}/api`,
+  baseURL: `${import.meta.env.VITE_HOST}/api`,
 });
 
 axiosClient.interceptors.request.use((config) => {
@@ -16,13 +16,13 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
-      localStorage.removeItem("accessToken");
-      window.location.reload();
-      return error;
-    }
     throw error;
   }
 );
+
+export const invalidToken = () => {
+  localStorage.removeItem("accessToken");
+  window.location.reload();
+};
 
 export default axiosClient;

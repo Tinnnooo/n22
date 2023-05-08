@@ -1,17 +1,31 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import Login from "./views/Login";
 import DefaultLayout from "./components/DefaultLayout";
-import Dashboard from "./views/Dashboard";
 import GuestLayout from "./components/GuestLayout";
+import Home from "./views/Home";
+import CreateForm from "./views/CreateForm";
+import FormDetail from "./views/FormDetail";
 
 const router = createBrowserRouter([
   {
-    path: "/dashboard",
+    path: "/",
     element: <DefaultLayout />,
     children: [
       {
-        path: "/dashboard",
-        element: <Dashboard />,
+        path: "/",
+        element: <Navigate to="/home" />,
+      },
+      {
+        path: "/home",
+        element: <Home />,
+      },
+      {
+        path: "/forms/create",
+        element: <CreateForm />,
+      },
+      {
+        path: "/forms/:slug",
+        element: <FormDetail />,
       },
     ],
   },

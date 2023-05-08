@@ -1,48 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
+import { useStateContext } from "../contexts/ContextProvider";
+import axiosClient from "../axios";
 
 export default function Login() {
+  const { currentUser, setToken, setCurrentUser, showToast } =
+    useStateContext();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    axiosClient
+      .post("v1/auth/login", {
+        email,
+        password,
+      })
+      .then(({ data }) => {
+        setCurrentUser(data.user);
+        setToken(data.user.accessToken);
+      })
+      .catch((err) => {
+        showToast(err.response.data.message, "red");
+      });
+  };
+
   return (
     <main>
-      <section class="login">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
-              <h1 class="text-center mb-4">Formify</h1>
-              <div class="card card-default">
-                <div class="card-body">
-                  <h3 class="mb-3">Login</h3>
+      <section className="login">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-5 col-md-6">
+              <h1 className="text-center mb-4">Formify</h1>
+              <div className="card card-default">
+                <div className="card-body">
+                  <h3 className="mb-3">Login</h3>
 
-                  <form method="post">
-                    <div class="form-group my-3">
-                      <label for="email" class="mb-1 text-muted">
+                  <form method="post" onSubmit={onSubmit}>
+                    <div className="form-group my-3">
+                      <label htmlFor="email" className="mb-1 text-muted">
                         Email Address
                       </label>
                       <input
                         type="email"
                         id="email"
                         name="email"
-                        v-model="email"
-                        class="form-control"
-                        autofocus
+                        className="form-control"
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
-                    <div class="form-group my-3">
-                      <label for="password" class="mb-1 text-muted">
+                    <div className="form-group my-3">
+                      <label htmlFor="password" className="mb-1 text-muted">
                         Password
                       </label>
                       <input
                         type="password"
                         id="password"
-                        v-model="password"
                         name="password"
-                        class="form-control"
+                        className="form-control"
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
 
-                    <div class="mt-4">
-                      <button type="submit" class="btn btn-primary">
-                        Login
-                      </button>
+                    <div className="mt-4">
+                      <button className="btn btn-primary">Login</button>
                     </div>
                   </form>
                 </div>

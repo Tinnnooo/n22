@@ -1,0 +1,67 @@
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+body {
+  padding-top: 3.5rem;
+}
+.btn,
+.jumbotron {
+  border-radius: 0;
+}
+.jumbotron {
+  background: #fafafa;
+}
+.spot {
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  background: #fafafa;
+}
+.unavailable {
+  opacity: 0.5;
+  cursor: default;
+}
+.slot {
+  background: #fafafa;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+}
+.slot.filled {
+  border: 2px solid #44b844;
+}
+
+.btn-sm {
+  cursor: pointer;
+}
+
+.toast-message {
+  width: 250px;
+  padding: 6px 15px;
+  font-weight: 600;
+  color: white;
+  border-radius: 8px;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  animation: fade-in-down 0.5s ease-in-out both;
+}
+
+@keyframes fade-in-down {
+  from {
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 10%);
+    opacity: 1;
+  }
+}
+
+.navbar {
+  z-index: 50;
+}
+
+.link:hover {
+  text-decoration: none;
+}

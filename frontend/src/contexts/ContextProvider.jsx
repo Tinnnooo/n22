@@ -1,8 +1,13 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const StateContext = createContext({
   currentUser: {},
   userToken: null,
+  toast: {
+    message: "",
+    show: false,
+  },
+  forms: [],
   setCurrentUser: () => {},
   setUserToken: () => {},
 });
@@ -12,6 +17,15 @@ export const ContextProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(
     localStorage.getItem("accessToken") || ""
   );
+  const [toast, setToast] = useState({ message: "", show: false, color: "" });
+  const [forms, setForms] = useState([]);
+
+  const showToast = (message, color) => {
+    setToast({ message: message, show: true, color: color });
+    setTimeout(() => {
+      setToast({ message: "", show: false, color: "" });
+    }, 3000);
+  };
 
   const setToken = (token) => {
     if (token) {
@@ -29,9 +43,15 @@ export const ContextProvider = ({ children }) => {
         setCurrentUser,
         userToken,
         setToken,
+        forms,
+        setForms,
+        toast,
+        showToast,
       }}
     >
       {children}
     </StateContext.Provider>
   );
 };
+
+export const useStateContext = () => useContext(StateContext);
