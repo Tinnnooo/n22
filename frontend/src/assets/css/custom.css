@@ -58,6 +58,21 @@ body {
   }
 }
 
+.fade-in-down2 {
+  animation: fade-in-down2 0.5s ease-in-out both;
+}
+
+@keyframes fade-in-down2 {
+  from {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+}
+
 .navbar {
   z-index: 50;
 }
@@ -65,4 +80,3 @@ body {
 .link:hover {
   text-decoration: none;
 }
-

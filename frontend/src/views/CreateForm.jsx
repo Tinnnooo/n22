@@ -45,7 +45,10 @@ export default function CreateForm() {
 
   return (
     <main>
-      <header className="jumbotron p-3">
+      <header
+        className="jumbotron p-3 fade-in-down2"
+        style={{ animationDelay: "0.1s" }}
+      >
         <div className="container">
           <h1 className="display-4">Create new form</h1>
         </div>
@@ -53,7 +56,10 @@ export default function CreateForm() {
 
       <div className="container">
         <form className="mb-5" method="post" onSubmit={onSubmit}>
-          <div className="form-group">
+          <div
+            className="form-group fade-in-down2"
+            style={{ animationDelay: "0.3s" }}
+          >
             <label htmlFor="name">Name</label>
             <input
               type="text"
@@ -65,7 +71,10 @@ export default function CreateForm() {
             />
             {error.name && <small className="text-danger">{error.name}</small>}
           </div>
-          <div className="form-group">
+          <div
+            className="form-group fade-in-down2"
+            style={{ animationDelay: "0.5s" }}
+          >
             <label htmlFor="slug">Slug</label>
             <input
               type="text"
@@ -77,7 +86,10 @@ export default function CreateForm() {
             />
             {error.slug && <small className="text-danger">{error.slug}</small>}
           </div>
-          <div className="form-group">
+          <div
+            className="form-group fade-in-down2"
+            style={{ animationDelay: "0.7s" }}
+          >
             <label htmlFor="allowed_domains">Allowed Domains</label>
             <input
               type="text"
@@ -88,7 +100,10 @@ export default function CreateForm() {
               onChange={(e) => setAllowedDomains(e.target.value)}
             />
           </div>
-          <div className="form-group">
+          <div
+            className="form-group fade-in-down2"
+            style={{ animationDelay: "0.9s" }}
+          >
             <label htmlFor="description">Description</label>
             <input
               type="text"
@@ -99,7 +114,10 @@ export default function CreateForm() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
-          <div className="custom-control custom-checkbox">
+          <div
+            className="custom-control custom-checkbox fade-in-down2"
+            style={{ animationDelay: "1s" }}
+          >
             <input
               type="checkbox"
               className="custom-control-input"
@@ -115,7 +133,11 @@ export default function CreateForm() {
               Limit one response
             </label>
           </div>
-          <button className="btn btn-primary rounded mt-4" type="submit">
+          <button
+            className="btn btn-primary rounded mt-4 fade-in-down2"
+            style={{ animationDelay: "1.1s" }}
+            type="submit"
+          >
             Create
           </button>
         </form>

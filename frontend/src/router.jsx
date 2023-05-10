@@ -5,12 +5,23 @@ import GuestLayout from "./components/GuestLayout";
 import Home from "./views/Home";
 import CreateForm from "./views/CreateForm";
 import FormDetail from "./views/FormDetail";
+import FormResponse from "./views/FormResponse";
+import Forbidden from "./views/Forbidden";
+import NotFound from "./views/404NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
     children: [
+      {
+        path: "/forbidden",
+        element: <Forbidden />,
+      },
+      {
+        path: "/404notfound",
+        element: <NotFound />,
+      },
       {
         path: "/",
         element: <Navigate to="/home" />,
@@ -26,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/forms/:slug",
         element: <FormDetail />,
+      },
+      {
+        path: "/forms/:slug/response",
+        element: <FormResponse />,
       },
     ],
   },

@@ -5,7 +5,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 export default function FormListItem({ form }) {
   const { showToast } = useStateContext();
   const copyLink = () => {
-    const link = window.location.origin + `/forms/${form.slug}`;
+    const link = window.location.origin + `/forms/${form.slug}/response`;
     navigator.clipboard.writeText(link);
     showToast("Link copied.");
   };

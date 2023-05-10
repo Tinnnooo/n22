@@ -18,7 +18,7 @@ class CheckUserDomain
     public function handle(Request $request, Closure $next): Response
     {
         $form = Form::where('slug', $request->slug)->first();
-        $userDomain = substr(strrchr($request->user()->email, "@"), 1);
+        $userDomain = substr(strrchr(auth()->user()->email, "@"), 1);
         $allowedDomain = $form->allowedDomains->pluck("domain")->toArray();
         if ($allowedDomain) {
             if (!in_array($userDomain, $allowedDomain)) {

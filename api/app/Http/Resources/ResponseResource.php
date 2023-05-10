@@ -15,7 +15,7 @@ class ResponseResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "date" => $this->date,
+            "date" => date("d-m-Y", strtotime($this->date)),
             "user" => [
                 "id" => $this->user->id,
                 "name" => $this->user->name,

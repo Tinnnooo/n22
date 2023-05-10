@@ -12,27 +12,32 @@ use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-    use ApiResponseHelpers;
+    // use ApiResponseHelpers;
 
-    public function login (LoginRequest $request) : JsonResponse {
+    public function login (LoginRequest $request) {
+
+         // mengambil input data yang sudah tervalidasi
         $validator = $request->validated();
 
+        // Jika data user (email atau password) salah.
         if (!Auth::attempt($validator)){
-            return $this->respondUnAuthenticated("Email or password is incorrect");
+            return response()->json(["Email or password is incorrect"], 401);
         };
 
-        $user = Auth::user();
-
-        $resource = LoginResource::make($user);
-
-        return $this->respondWithSuccess($resource);
+        // jika data user (email dan password) benar.
+        $resource = LoginResource::make(Auth::user());
+        return response()->json($resource);
     }
 
-    public function logout () : JsonResponse{
-        $user = Auth::user();
+    public function logout (){
 
-        $user->currentAccessToken()->delete();
+        // delete access token
+        Auth::user()
+        ->currentAccessToken()
+        ->delete();
 
-        return $this->respondWithSuccess(["message" => 'Logout success']);
+        return response()->json([
+            "message" => "Logout success"
+        ]);
     }
 }

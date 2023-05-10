@@ -19,27 +19,23 @@ use Illuminate\Http\JsonResponse;
 
 class ResponseController extends Controller
 {
-    use ApiResponseHelpers;
-
     public function __construct()
     {
         $this->middleware(CheckUserDomain::class)->only('submit');
         $this->middleware(isTwiceResponse::class)->only('submit');
-
         $this->middleware(AccessForm::class)->only('get');
     }
 
-    public function submit($slug, ResponseRequest $request): JsonResponse
+    public function submit($slug, ResponseRequest $request)
     {
         $validator = $request->validated();
-
         $form = Form::where('slug', $slug)->first();
-
         $response = Response::create([
             'form_id' => $form->id,
             'user_id' => $request->user()->id,
             'date' => date('Y-m-d'),
         ]);
+
 
         foreach ($validator['answers'] as $answer) {
             $questionsId = $answer['question_id'];
@@ -57,15 +53,17 @@ class ResponseController extends Controller
 
             Answer::create($data);
         }
-        return $this->respondWithSuccess(['message' => 'Submit response success']);
+
+        return response()->json([
+            'message' => 'Submit response success'
+        ], 200);
     }
 
-    public function get(Request $request): JsonResponse
+    public function get(Request $request)
     {
         $form = $request->get('form');
         $response = Response::where('form_id', $form->id)->get();
-
-        return $this->respondWithSuccess([
+        return response()->json([
             "message" => "Get responses success",
             "responses" => new ResponseCollection($response)
         ]);

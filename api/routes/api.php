@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::post('/forms', [FormController::class, 'create']);
     Route::get('/forms', [FormController::class, 'get']);
     Route::get('/forms/{slug}', [FormController::class, 'getDetail']);
-    Route::get('/forms/{slug}/questions', [QuestionController::class, 'add']);
+    Route::post('/forms/{slug}/questions', [QuestionController::class, 'add']);
     Route::delete('/forms/{slug}/questions/{id}', [QuestionController::class, 'remove']);
     Route::post('/forms/{slug}/responses', [ResponseController::class, 'submit']);
     Route::get('/forms/{slug}/responses', [ResponseController::class, 'get']);

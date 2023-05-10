@@ -13,14 +13,13 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    use ApiResponseHelpers;
 
     public function __construct(){
         $this->middleware(AccessForm::class)->only(['add', 'remove']);
         $this->middleware(RemoveForm::class)->only('remove');
     }
 
-    public function add($slug, QuestionRequest $request) : JsonResponse {
+    public function add(QuestionRequest $request){
         $validator = $request->validated();
         $form = $request->get("form");
         $choices = $validator['choices'];
@@ -29,14 +28,14 @@ class QuestionController extends Controller
 
         $data = Question::create($validator);
 
-        return $this->respondWithSuccess(new AddQuestionResource($data));
+        return response()->json(new AddQuestionResource($data));
     }
 
-    public function remove($slug, $id, Request $request){
+    public function remove(Request $request){
         $question = $request->get('question');
-
         $question->delete();
-
-        return $this->respondWithSuccess(["message" => "Remove question success"]);
+        return response()->json([
+            "message" => "Remove question success"
+        ], 200);
     }
 }

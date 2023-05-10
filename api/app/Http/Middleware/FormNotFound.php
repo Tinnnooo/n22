@@ -22,7 +22,6 @@ class FormNotFound
                 "message" => "Form not found",
             ], 404);
         }
-        $request->attributes->add(["form" => $form]);
 
         return $next($request);
     }

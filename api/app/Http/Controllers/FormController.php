@@ -19,37 +19,39 @@ class FormController extends Controller
 {
     use ApiResponseHelpers;
 
-    public function create(FormRequests $request): JsonResponse
+    public function create(FormRequests $request)
     {
+        // validasi data dan buat data form baru
         $validator = $request->validated();
         $form = Form::create($validator);
 
+        // buat data allowed domain
+
+        $allowedDomain = [];
         foreach ($validator['allowed_domains'] as $domain) {
-            AllowedDomain::create([
-                "form_id" => $form->id,
-                'domain' => $domain
+            $allowedDomain[] = new AllowedDomain([
+                "domain" => $domain
             ]);
         }
+        $form->allowedDomains()->saveMany($allowedDomain);
 
-        $response = FormResource::make($form);
-
-        return $this->respondWithSuccess(["message" => "Create form success", "form" => $response]);
+        return response()->json([
+            "message" => "Create form success",
+            "form" => FormResource::make($form)
+        ], 200);
     }
 
-    public function get(): JsonResponse
+    public function get()
     {
-        $user = auth()->user();
-
-        $data = Form::where('creator_id', $user->id)->get();
-
-        return $this->respondWithSuccess(new FormCollection($data));
+        $data = Form::where('creator_id', auth()->user()->id)->get();
+        return response()->json(new FormCollection($data));
     }
 
-    public function getDetail(Request $request): JsonResponse
+    public function getDetail(Request $request)
     {
-        $form = $request->get('form');
+        $form = Form::where('slug', $request->slug)->first();
 
-        return $this->respondWithSuccess(new DetailFormResource($form));
+        return response()->json(new DetailFormResource($form));
     }
 
     public function __construct()

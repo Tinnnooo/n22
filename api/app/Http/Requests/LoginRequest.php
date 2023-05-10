@@ -23,12 +23,14 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
+        // validasi input email dan password
         return [
             "email" => "required|email",
             "password" => "required|min:5"
         ];
     }
 
+    // set response error untuk login request
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(

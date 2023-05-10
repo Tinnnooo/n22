@@ -9,8 +9,9 @@ const StateContext = createContext({
     show: false,
   },
   forms: [],
-  setCurrentUser: () => { },
-  setUserToken: () => { },
+  responses: [],
+  setCurrentUser: () => {},
+  setUserToken: () => {},
 });
 
 export const ContextProvider = ({ children }) => {
@@ -18,9 +19,17 @@ export const ContextProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(
     localStorage.getItem("accessToken") || ""
   );
-  const [choiceTypes] = useState(['short answer', 'paragraph', 'date', 'multiple choice', 'dropdown', 'checkboxes']);
+  const [choiceTypes] = useState([
+    "short answer",
+    "paragraph",
+    "date",
+    "multiple choice",
+    "dropdown",
+    "checkboxes",
+  ]);
   const [toast, setToast] = useState({ message: "", show: false, color: "" });
   const [forms, setForms] = useState([]);
+  const [responses, setResponses] = useState([]);
 
   const showToast = (message, color) => {
     setToast({ message: message, show: true, color: color });
@@ -50,6 +59,8 @@ export const ContextProvider = ({ children }) => {
         toast,
         showToast,
         choiceTypes,
+        responses,
+        setResponses,
       }}
     >
       {children}

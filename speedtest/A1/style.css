@@ -1,0 +1,237 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
+  text-decoration: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  background: #000;
+}
+
+.logo img {
+  width: 150px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  padding: 0px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+header .navbar ul {
+  list-style: none;
+}
+
+header .navbar ul li {
+  position: relative;
+  float: left;
+}
+
+header .navbar ul li a {
+  font-size: 20px;
+  padding: 20px;
+  color: #333;
+  display: block;
+}
+
+header .navbar ul li a:hover {
+  background: #333;
+  color: #fff;
+}
+
+header .navbar ul li ul {
+  position: absolute;
+  left: 0;
+  width: 200px;
+  background: #fff;
+  display: none;
+}
+
+header .navbar ul li ul li {
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+header .navbar ul li:focus-within > ul,
+header .navbar ul li:hover > ul {
+  display: initial;
+  animation: fade-in-down-nav 0.8s ease-in-out both;
+}
+
+@keyframes fade-in-down-nav {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+header label span {
+  height: 5px;
+  width: 10px;
+  background: #000;
+}
+
+#menu-bar {
+  display: none;
+}
+
+.menu-button-container {
+  display: none;
+  height: 100%;
+  width: 30px;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-button,
+.menu-button::before,
+.menu-button::after {
+  display: block;
+  background-color: #333;
+  position: absolute;
+  height: 4px;
+  width: 30px;
+  transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 2px;
+}
+
+.menu-button::before {
+  content: "";
+  margin-top: -8px;
+}
+
+.menu-button::after {
+  content: "";
+  margin-top: 8px;
+}
+
+#menu-bar:checked + .menu-button-container .menu-button::before {
+  margin-top: 0px;
+  transform: rotate(405deg);
+}
+
+#menu-bar:checked + .menu-button-container .menu-button {
+  background: rgba(0, 0, 0, 0);
+}
+
+#menu-bar:checked + .menu-button-container .menu-button::after {
+  margin-top: 0px;
+  transform: rotate(-405deg);
+}
+
+@media (max-width: 991px) {
+  header {
+    padding: 20px;
+  }
+  .menu-button-container {
+    display: initial;
+  }
+
+  header .navbar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: none;
+  }
+
+  header .navbar ul li {
+    width: 100%;
+  }
+
+  header .navbar ul li ul {
+    position: relative;
+    width: 100%;
+  }
+
+  header .navbar ul li ul li {
+    background: #eee;
+  }
+
+  #menu-bar:checked ~ .navbar {
+    display: initial;
+  }
+}
+
+main {
+  min-height: 100vh;
+  background: url("https://source.unsplash.com/random/900x700/?mountain")
+    no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero {
+  padding: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  font-size: 24px;
+  color: rgb(19, 4, 4);
+  animation: fade-in-down 0.8s ease-in-out both;
+}
+
+.hero-text {
+  padding: 30px;
+  text-align: center;
+}
+
+.hero-cta {
+  text-align: center;
+  padding: 7px;
+}
+
+@keyframes fade-in-down {
+  from {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50, -50%);
+    opacity: 1;
+  }
+}
+
+.button {
+  padding: 9px;
+  border-color: transparent;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 4px;
+  background: rgb(21, 116, 21);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.button:hover {
+  color: rgb(21, 116, 21);
+  background: #fff;
+  transform: scale(1.2);
+}
